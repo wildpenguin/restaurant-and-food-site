@@ -45,5 +45,9 @@ class WebPage
 	*/
 	private $body;
 
+	/**
+	* @ORM\Column(type="string", name="tags")
+	*/
+	private $tags;
 	
 }
