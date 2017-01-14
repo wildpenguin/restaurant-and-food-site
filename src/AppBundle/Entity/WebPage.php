@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
 * @ORM\Entity
 * @ORM\Table(name="webpage")
+* @ORM\HasLifecycleCallbacks()
 */
 
 class WebPage
@@ -204,4 +205,14 @@ class WebPage
     {
         return $this->tags;
     }
+
+    /**
+    * Automatically fill the create date
+    * @ORM\PrePersist
+    */
+    public function setCreatedAtDate()
+	{
+		$this->createdAt = new \DateTime("NOW");
+	}
+
 }

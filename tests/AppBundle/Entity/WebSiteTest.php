@@ -20,31 +20,28 @@ class WebSiteTest extends KernelTestCase
 	public function testAddNewSite()
 	{
 		$page = new WebPage();
-		$page->setName('homepage');
+		$page->setName('homepage101');
 		$page->setTitle('My homepage');
 		$page->setBody('<body>hahahahaha</body>');
-		$page->setCreatedAt(date('Y-m-d H:i:s'));
 		$page->setAuthor('1');
 
-		
 		$this->em->persist($page);
+		$this->em->flush();
+		
+		$homepage = $this->em->getRepository('AppBundle:WebPage')
+				->find($page->getId());
+		$this->assertNotNull($homepage);
+		$this->assertEquals($homepage->getName(), 'homepage101');
 
-		$content = $page->load('homepage');
-		$this->assertEqual($content->getName(), 'homepage');
-		$this->assertEqual($content->getTitle(), 'My homepage');
+		$this->em->remove($page);
+		$this->em->flush();
 		
 	}
 
 	protected function tearDown()
     {
         parent::tearDown();
-
-        $connection = $this->em->getConnection();
         
-        $connection->query('SET FOREIGN_KEY_CHECKS=0');
-        $connection->query('DELETE from webpage');
- 		$connection->commit();
-
         $this->em->close();
         $this->em = null; // avoid memory leaks
     }
