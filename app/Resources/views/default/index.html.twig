@@ -3,11 +3,10 @@
 {% block body %}
     <div id="wrapper">
         <div id="container">
-            <h4 id="title" class="customizable">
-                {{ title }}
-            </h4>
-            <p id="paragraph1" class="customizable">{{ paragraph1}}</p>
-
+            <div id="pagetitle" class="customizable"> {{pagetitle |default('pagetitle text')}}
+            </div>
+            <p id="textbody" class="customizable largetext"> {{textbody |default('textbody text')}} </p>
+            <div id="app"></div>
             <div id="status">
                 <p>
                   
