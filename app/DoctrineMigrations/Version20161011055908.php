@@ -15,15 +15,10 @@ class Version20161011055908 extends AbstractMigration
      */
     public function up(Schema $schema)
     {
-        $this->addSql("CREATE TABLE webpage (
-            id int not null auto_increment,
-            name varchar(100),
-            author_id int not null,
-            created_at datetime,
-            title varchar(256),
-            body blob,
-            tags varchar(256),
-            primary key(id)
+        $this->addSql("
+            CREATE TABLE page_text (
+            text_id VARCHAR(50),
+            text_content BLOB
             )"
         );
 
@@ -34,6 +29,6 @@ class Version20161011055908 extends AbstractMigration
      */
     public function down(Schema $schema)
     {
-        $this->addSql('drop table webpage');
+        $this->addSql('drop table page_text');
     }
 }

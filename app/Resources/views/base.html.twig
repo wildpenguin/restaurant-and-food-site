@@ -5,8 +5,8 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         
         {% block stylesheets %}
-            <link rel="stylesheet" href="js/lib/font-awesome/css/font-awesome.min.css"></script>
-            <link rel="stylesheet" href="js/lib/bootstrap/dist/css/bootstrap.min.css"></script>
+            <link rel="stylesheet" href="css/font-awesome-4.7.0/css/font-awesome.min.css"></script>
+            <link rel="stylesheet" href="js/node_modules/bootstrap/dist/css/bootstrap.min.css"></script>
         {% endblock %}
 
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
@@ -16,16 +16,9 @@
         {% block body %}
         {% endblock %}
         {% block javascripts %}
-            <script type="text/javascript" src="js/lib/react/react.min.js"></script>
-            <script type="text/javascript" src="js/lib/react/react-dom.min.js"></script>
-            <script type="text/javascript" src="js/lib/babel/browser.min.js"></script>
-            <script type="text/javascript" src="js/lib/babel/browser.min.js"></script>
-            <script type="text/javascript" src="js/lib/jquery/dist/jquery.min.js"></script>
-            <script type="text/javascript" src="js/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-
-            <script type="text/babel" src="js/index.js"></script>
-
-
+            <script type="text/javascript" src="js/node_modules/jquery/dist/jquery.min.js"></script>
+            <script type="text/javascript" src="js/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+            <script type="text/javascript" src="js/build/bundle.js"></script>
         {% endblock %}
         
     </body>

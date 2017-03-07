@@ -3,9 +3,9 @@
 {% block body %}
     <div id="wrapper">
         <div id="container">
-            <div id="pagetitle" class="customizable"> {{pagetitle |default('pagetitle text')}}
+            <div id="pagetitle" class="customizable"> {{ parachute('pagetitle') }}
             </div>
-            <p id="textbody" class="customizable largetext"> {{textbody |default('textbody text')}} </p>
+            <p id="pagebody" class="customizable"> {{ parachute('pagebody'}} </p>
             <div id="app"></div>
             <div id="status">
                 <p>
