@@ -24,7 +24,7 @@ class AppExtension extends \Twig_Extension
         return $text->getTextContent();	
 	}
 
-	public function getFuntions()
+	public function getFunctions()
 	{
 		return array(
 			'parachute' => new \Twig_Function_Method($this, 'parachute'),
