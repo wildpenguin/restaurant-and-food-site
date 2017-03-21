@@ -57,9 +57,8 @@ class CustomizableComponent extends React.Component {
     saveNewText() {
         $.ajax({
           method: 'POST',
-          url: 'api/page',
+          url: 'api/content/'+this.props.element.id,
           data: {
-            id: this.props.element.id, 
             value: this.state.elementValue
           }
         })
