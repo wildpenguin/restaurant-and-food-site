@@ -44,10 +44,13 @@ class PageController extends Controller
             $em->flush();
 
             return $this->json(
-                array('status'=>'success'
-            ));
+                array(
+                    'status'=>'success',
+                )
+            );
         }
 
     }
+
 
 }

@@ -18,12 +18,46 @@ const customStyles = {
   }
 };
 
+class DialogForm extends React.Component {
+    constructor(props) {
+        super(props);
+        this.onTextChange = this.onTextChange.bind(this);
+        this.onTextSave = this.onTextSave.bind(this);
+    }
+    
+    onTextChange(e) {
+        this.props.handleTextChange(e.target.value);
+    }
+
+    onTextSave() {
+        this.props.handleTextSave();
+    }
+
+
+    render() {
+        return (
+            <form>
+                <textarea onChange={this.onTextChange} defaultValue={this.props.value}>
+                </textarea>
+                <button className="btn btn-primary" onClick={this.onTextSave}>Save</button>
+            </form>
+        );
+    }
+}
+
+class DialogMessage extends React.Component {
+    render() {
+        return (
+            <p>{this.props.message} </p>
+        );
+    }
+}
 
 class CustomizableComponent extends React.Component {
     constructor(props) {
         super(props);
 
-        this.saveNewText = this.saveNewText.bind(this);
+        this.handleTextSave = this.handleTextSave.bind(this);
         this.handleTextChange = this.handleTextChange.bind(this);
         this.openModal = this.openModal.bind(this);
         this.afterOpenModal = this.afterOpenModal.bind(this);
@@ -31,7 +65,8 @@ class CustomizableComponent extends React.Component {
   
         this.state = {
             modalIsOpen: false,
-            elementValue: this.props.element.textContent
+            elementValue: this.props.element.textContent,
+            displayForm: true,
         };
        
     }
@@ -49,30 +84,32 @@ class CustomizableComponent extends React.Component {
         this.setState({modalIsOpen: false});
     }
     
-    handleTextChange(e) {
-        this.setState({elementValue: e.target.value});
+    handleTextChange(value) {
+        this.setState({elementValue: value});
         console.log('new value' + e.target.value);
     }
 
-    saveNewText() {
+    handleTextSave() {
         $.ajax({
           method: 'POST',
           url: 'api/content/'+this.props.element.id,
           data: {
             value: this.state.elementValue
-          }
+          },
+          dataType: 'json',
         })
         .done(function(data) {
-            console.log('chunk saved');
+            if ('success' == data.status) {
+                this.setState({displayForm: false});
+            }
         });
     }
 
     render() {
-     
-            return (
 
+            return (
                 <span> 
-                    {this.state.elementValue}  
+                    {this.state.elementValue}
                     <sup>
                         <i className="fa fa-pencil-square" aria-hidden="true" onClick={this.openModal}></i>
                     </sup>
@@ -85,11 +122,8 @@ class CustomizableComponent extends React.Component {
                         contentLabel="Example Modal"
                     >
                     <h2 ref="subtitle">Online Editor</h2>
-                    <form>
-                        <textarea onChange={this.handleTextChange} defaultValue={this.state.elementValue}>
-                            </textarea>
-                    </form>
-                    <button className="btn btn-primary" onClick={this.saveNewText}>Save</button>
+
+
                     <button className="btn" onClick={this.closeModal}>Close</button>
                     </Modal>
                 </span>
@@ -115,10 +149,15 @@ function attachEditable(element) {
     );
 }
 
+function init() {
 
-var elements = findCustomizable();
+    var elements = findCustomizable();
 
-for (var i=0; i < elements.length; i++) {
-    attachEditable(elements[i]);
+    for (var i=0; i < elements.length; i++) {
+        attachEditable(elements[i]);
+    }
 }
+
+/* main function */
+init();
 

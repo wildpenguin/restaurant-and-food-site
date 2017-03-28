@@ -15,16 +15,16 @@ use Doctrine\ORM\Mapping as ORM;
 class PageText
 {
 	/**
-	* @ORM\Column(type="string", length=50)
+	* @ORM\Column(name="text_id", type="string", length=50)
 	* @ORM\Id
 	* 
 	*/
-	private $text_id;
+	private $textId;
 
 	/**
-	* @ORM\Column(type="blob")
+	* @ORM\Column(name="text_content", type="blob")
 	*/
-	private $text_content;
+	private $textContent;
 
 
     
@@ -38,7 +38,7 @@ class PageText
      */
     public function setTextId($textId)
     {
-        $this->text_id = $textId;
+        $this->textId = $textId;
 
         return $this;
     }
@@ -50,7 +50,7 @@ class PageText
      */
     public function getTextId()
     {
-        return $this->text_id;
+        return $this->textId;
     }
 
     /**
@@ -62,7 +62,7 @@ class PageText
      */
     public function setTextContent($textContent)
     {
-        $this->text_content = $textContent;
+        $this->textContent = $textContent;
 
         return $this;
     }
@@ -74,6 +74,6 @@ class PageText
      */
     public function getTextContent()
     {
-        return $this->text_content;
+        return $this->textContent;
     }
 }

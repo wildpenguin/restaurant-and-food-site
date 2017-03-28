@@ -17,11 +17,12 @@ class AppExtension extends \Twig_Extension
 
 	public function parachute($id)
 	{
-		$text = $this->doctrine->getRepository('AppBundle:PageText')->find($id);
-        if (!$text) 
-        	return 'click on the edit button to modify this text';
+		$text = $this->doctrine->getRepository('AppBundle:PageText')->findOneByTextId($id);
 
-        return $text->getTextContent();	
+        if (!$text) {
+        	return 'click on the edit button to modify this text';
+        }
+        return stream_get_contents($text->getTextContent());
 	}
 
 	public function getFunctions()

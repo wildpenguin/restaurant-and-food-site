@@ -18,7 +18,7 @@ class Version20161011055908 extends AbstractMigration
         $this->addSql("
             CREATE TABLE page_text (
             text_id VARCHAR(50),
-            text_content BLOB
+            text_content TEXT
             )"
         );
 
