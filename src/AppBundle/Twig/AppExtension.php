@@ -8,7 +8,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 
 class AppExtension extends \Twig_Extension
 {
-	protected $doctrine;
+	/*protected $doctrine;
 
 	public function __construct(RegistryInterface $doctrine) 
 	{
@@ -30,6 +30,6 @@ class AppExtension extends \Twig_Extension
 		return array(
 			'parachute' => new \Twig_Function_Method($this, 'parachute'),
 		);
-	}
+	}*/
 	
 }

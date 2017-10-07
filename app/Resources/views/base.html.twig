@@ -7,6 +7,7 @@
         {% block stylesheets %}
             <link rel="stylesheet" href="css/font-awesome-4.7.0/css/font-awesome.min.css"></script>
             <link rel="stylesheet" href="js/node_modules/bootstrap/dist/css/bootstrap.min.css"></script>
+            <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"></script>
         {% endblock %}
 
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
@@ -16,9 +17,23 @@
         {% block body %}
         {% endblock %}
         {% block javascripts %}
-            <script type="text/javascript" src="js/node_modules/jquery/dist/jquery.min.js"></script>
+            
+            <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
             <script type="text/javascript" src="js/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-            <script type="text/javascript" src="js/build/bundle.js"></script>
+            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+            <!--script
+
+                src="https://code.jquery.com/jquery-3.2.1.min.js"
+                integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+                crossorigin="anonymous"> </script>
+            <script  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+                    integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+                    crossorigin="anonymous"></script-->
+
+            
+            <script src="{{ asset('js/easycms.js') }}"></script>
+
+            <!--script type="text/javascript" src="js/build/bundle.js"></script-->
         {% endblock %}
         
     </body>

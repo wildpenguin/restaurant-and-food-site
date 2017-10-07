@@ -5,18 +5,9 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Modal from 'react-modal';
 
-const customStyles = {
-  content : {
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)'
-  }
-};
+//import Modal from 'react-modal';
+
 
 class DialogForm extends React.Component {
     constructor(props) {
@@ -27,31 +18,63 @@ class DialogForm extends React.Component {
     
     onTextChange(e) {
         this.props.handleTextChange(e.target.value);
+        console.log('saving..');
     }
 
-    onTextSave() {
+    onTextSave(e) {
+        e.preventDefault();
         this.props.handleTextSave();
+        console.log("clicked");return;
     }
-
 
     render() {
         return (
             <form>
-                <textarea onChange={this.onTextChange} defaultValue={this.props.value}>
-                </textarea>
-                <button className="btn btn-primary" onClick={this.onTextSave}>Save</button>
+                <textarea onChange={this.onTextChange} defaultValue={this.props.value} >
+                </textarea> <br/>
+                <button onClick={this.onTextSave} className="btn btn-primary">Save</button>
             </form>
         );
     }
 }
 
-class DialogMessage extends React.Component {
-    render() {
-        return (
-            <p>{this.props.message} </p>
-        );
+
+
+class DialogBox extends React.Component {
+  
+    constructor(props) {
+        super(props)
+        this.openDialog = this.openDialog.bind(this);
+        this.closeDialog = this.closeDialog.bind(this);
     }
-}
+
+    openDialog(e) {
+      e.preventDefault();
+      
+      var $dialog = $('<div>').dialog({
+        title:'Edit Text',
+        width:auto,
+        height:auto,
+        close: function(e){
+          $(this).remove();
+        }
+      });
+    }
+      
+      closeDialog(e) {
+        e.preventDefault();
+        $dialog.dialog('close');
+      }
+        
+      //React.renderComponent(<DialogContent closeDialog={closeDialog} />, $dialog[0])
+    
+    render() {
+      return(
+        <sup>  <i className="fa fa-pencil-square" aria-hidden="true" onClick={this.openDialog}></i> 
+        </sup>
+      );
+    }
+  };
 
 class CustomizableComponent extends React.Component {
     constructor(props) {
@@ -86,7 +109,7 @@ class CustomizableComponent extends React.Component {
     
     handleTextChange(value) {
         this.setState({elementValue: value});
-        console.log('new value' + e.target.value);
+        console.log('new value' + value);
     }
 
     handleTextSave() {
@@ -97,38 +120,41 @@ class CustomizableComponent extends React.Component {
             value: this.state.elementValue
           },
           dataType: 'json',
-        })
-        .done(function(data) {
+          success: function(data) {
             if ('success' == data.status) {
                 this.setState({displayForm: false});
-            }
+            };
+          }.bind(this)
         });
     }
 
     render() {
-
+            /*var dialogBody = <DialogForm 
+                    value={this.state.elementValue} 
+                    handleTextChange={this.handleTextChange} 
+                    handleTextSave={this.handleTextSave}
+                />;
+            if (this.state.displayForm === false) {
+                dialogBody = "Your text was saved!";
+            }*/
             return (
                 <span> 
                     {this.state.elementValue}
-                    <sup>
-                        <i className="fa fa-pencil-square" aria-hidden="true" onClick={this.openModal}></i>
-                    </sup>
+                   
                
-                    <Modal
+                    <DialogBox
                         isOpen={this.state.modalIsOpen}
-                        onAfterOpen={this.afterOpenModal}
-                        onRequestClose={this.closeModal}
-                        style={customStyles}
-                        contentLabel="Example Modal"
+                        //onAfterOpen={this.afterOpenModal}
+                        //onRequestClose={this.closeModal}
+                        //style={customStyles}
+                        //contentLabel="Example Modal"
                     >
-                    <h2 ref="subtitle">Online Editor</h2>
-
-
+                    <h2 ref="subtitle">Edit text</h2>
                     <button className="btn" onClick={this.closeModal}>Close</button>
-                    </Modal>
+                    </DialogBox>
                 </span>
             );
-            
+           
         }
 
     //}

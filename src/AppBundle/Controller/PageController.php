@@ -17,18 +17,24 @@ class PageController extends Controller
      */
     public function indexAction(Request $request)
     {
-        return $this->render('default/index.html.twig');
+        $menuItems = $this->getDoctrine()
+            ->getRepository('AppBundle:WebsiteData')
+            ->findByElementFunction('topmenu');
+
+        return $this->render('default/index.html.twig', array(
+            "menuItems"=>$menuItems,
+        ));
     }
 
 
     /**
-    * @Route("/api/content/{id}", name="postchunk")
+    * @Route("/api/content/{textId}", name="postchunk")
     * @Method("POST")
     */
-    public function saveTextAction(Request $request, $id) 
+    public function saveTextAction(Request $request, $textId) 
     {
         $pageText = $this->getDoctrine()
-            ->getRepository('AppBundle:PageText')->find($id);
+            ->getRepository('AppBundle:PageText')->find($textId);
         
         if (!$pageText) {
             $pageText = new PageText();
@@ -40,17 +46,32 @@ class PageController extends Controller
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($pageText);
-
             $em->flush();
 
-            return $this->json(
-                array(
-                    'status'=>'success',
-                )
-            );
+            return $this->json(array(
+                'status'=>'success', 
+                $status=200
+            ));
         }
-
+       
+        return $this->json(array(
+            'status' => 'error', 
+            $status=500
+        ));
     }
 
+    /**
+    * @Route("/api/forms/topmenu")
+    * @Method("GET")
+    */
+    public function getTopMenuCreateForm(Request $request)
+    {
+        return $this->render('forms/topmenu.html.twig');
+    }
 
+    /**
+    * @Route("/api/forms/topmenu")
+    * @Method("POST")
+    */
+    
 }
