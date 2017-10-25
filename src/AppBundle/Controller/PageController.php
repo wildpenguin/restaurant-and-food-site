@@ -6,7 +6,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\PageText;
+use AppBundle\Entity\SiteMenu;
+use AppBundle\Form\TopmenuType;
 
 
 class PageController extends Controller
@@ -18,8 +19,8 @@ class PageController extends Controller
     public function indexAction(Request $request)
     {
         $menuItems = $this->getDoctrine()
-            ->getRepository('AppBundle:WebsiteData')
-            ->findByElementFunction('topmenu');
+            ->getRepository('AppBundle:SiteMenu')
+            ->findByName('topmenu');
 
         return $this->render('default/index.html.twig', array(
             "menuItems"=>$menuItems,
@@ -61,17 +62,30 @@ class PageController extends Controller
     }
 
     /**
-    * @Route("/api/forms/topmenu")
-    * @Method("GET")
+    * @Route("/forms/topmenu", name="topmenu")
+    * @Method({"GET", "POST"})
     */
-    public function getTopMenuCreateForm(Request $request)
+    public function siteMenuFormAction(Request $request)
     {
-        return $this->render('forms/topmenu.html.twig');
+        $siteMenu = new SiteMenu();
+        $form = $this->createForm(TopmenuType::class, $siteMenu, array(
+            'action' => $this->generateUrl("topmenu"),
+            'method' => 'POST',
+        ));
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $siteMenu = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($siteMenu);
+            $em->flush();
+
+            return $this->redirectToRoute('homepage');
+        }
+
+        return $this->render('forms/topmenu.html.twig', array(
+            'form'=>$form->createView()));
     }
 
-    /**
-    * @Route("/api/forms/topmenu")
-    * @Method("POST")
-    */
     
 }

@@ -16,9 +16,15 @@ class Version20161011055908 extends AbstractMigration
     public function up(Schema $schema)
     {
         $this->addSql("
-            CREATE TABLE page_text (
-            text_id VARCHAR(50),
-            text_content TEXT
+            CREATE TABLE website_menu (
+            id INT NOT NULL AUTO_INCREMENT,
+            name char(50),
+            title char(50),
+            url char(100),
+            position INT, 
+            icon char(100),
+            parent INT default 0,
+            PRIMARY KEY(id)
             )"
         );
 
@@ -29,6 +35,6 @@ class Version20161011055908 extends AbstractMigration
      */
     public function down(Schema $schema)
     {
-        $this->addSql('drop table page_text');
+        $this->addSql('drop table website_menu');
     }
 }

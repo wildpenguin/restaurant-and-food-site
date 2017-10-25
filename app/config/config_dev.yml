@@ -25,8 +25,8 @@ parameters:
     database_host: 127.0.0.1
     database_port: 8889
     database_name: restaurant_test
-    database_user: root
-    database_password: root
+    database_user: rest
+    database_password: rest123
     mailer_transport: smtp
     mailer_host: 127.0.0.1
     mailer_user: null
