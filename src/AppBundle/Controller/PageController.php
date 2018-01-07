@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\SiteMenu;
 use AppBundle\Form\TopmenuType;
+use AppBundle\Repository\MenuRepository;
 
 
 class PageController extends Controller
@@ -19,7 +20,7 @@ class PageController extends Controller
     public function indexAction(Request $request)
     {
         $menuItems = $this->getDoctrine()
-            ->getRepository('AppBundle:SiteMenu')
+            ->getRepository(SiteMenu::class)
             ->findByName('topmenu');
 
         return $this->render('default/index.html.twig', array(
@@ -32,7 +33,7 @@ class PageController extends Controller
     * @Route("/api/content/{textId}", name="postchunk")
     * @Method("POST")
     */
-    public function saveTextAction(Request $request, $textId) 
+    /*public function saveTextAction(Request $request, $textId) 
     {
         $pageText = $this->getDoctrine()
             ->getRepository('AppBundle:PageText')->find($textId);
@@ -60,7 +61,7 @@ class PageController extends Controller
             $status=500
         ));
     }
-
+    */
     /**
     * @Route("/forms/topmenu", name="topmenu")
     * @Method({"GET", "POST"})
@@ -76,6 +77,10 @@ class PageController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $siteMenu = $form->getData();
+            $nextPosition = $this->getDoctrine()->getRepository(SiteMenu::class)
+                ->findNextAvailablePosition($siteMenu->getName());
+                
+            $siteMenu->setPosition($nextPosition);
             $em = $this->getDoctrine()->getManager();
             $em->persist($siteMenu);
             $em->flush();
