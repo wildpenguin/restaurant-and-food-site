@@ -1,4 +1,8 @@
+{% form_theme menuForm 'bootstrap_3_layout.html.twig' %}
 
-{{ form_start(form) }}
-{{ form_widget(form) }}
-{{ form_end(form) }}
+{{ form_start(menuForm) }}
+	{{ form_row(menuForm.name) }}
+	{{ form_row(menuForm.title) }}
+	{{ form_row(menuForm.url) }}
+	{{ form_row(menuForm.icon) }}
+{{ form_end(menuForm) }}
