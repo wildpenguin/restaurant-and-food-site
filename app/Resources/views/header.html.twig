@@ -34,9 +34,6 @@
 				</div>
 				<div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
 				<div class="container-fluid">
-					{% if is_granted('ROLE_ADMIN') %}
-						<a class="adminmenu" href="/admin/topmenu/new"><i class="fa fa-plus" aria-hidden="true"></i></a>
-					{% endif %}
 					<ul class="nav navbar-nav">
 						{% for item in menuItems|default("") %}
 						<li>
@@ -52,6 +49,11 @@
 						{% else %}
 							<li><a href="#">Empty menu list ?</a></li>
 						{% endfor %}
+						{% if is_granted('ROLE_ADMIN') %}
+						<li>
+							<a class="adminmenu clickable" href="/admin/topmenu/new"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+						</li>
+						{% endif %}
 					</ul>
 					
 
