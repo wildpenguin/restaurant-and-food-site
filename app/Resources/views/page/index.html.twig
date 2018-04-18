@@ -2,9 +2,11 @@
 
 {% block body %}
 
+    {{ include('page/add_article.html.twig') }}
+
 	<div id="wrapper">
 		<div id="container">
-			{% extends 'articles.html.twig' %}
+			{{ include('page/articles.html.twig', { 'articles': articles }) }}
 		</div>
 	</div>
 	<div id="dialog" title="Dialog Title"></div>

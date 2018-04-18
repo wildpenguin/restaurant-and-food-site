@@ -45,6 +45,7 @@ class PageController extends Controller
 
 		return $this->render('page/index.html.twig', array(
 			"menuItems"=>$menuItems,
+			"articles" =>""
 		));
 	}
 

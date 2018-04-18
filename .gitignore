@@ -17,3 +17,4 @@ npm-debug.log
 /web/bundles/
 /web/js/node_modules/
 /web/js/build/*
+composer.lock

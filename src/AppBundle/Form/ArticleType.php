@@ -14,15 +14,22 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use AppBundle\Entity\Article;
 
-class TopmenuType extends AbstractType
+class ArticleType extends AbstractType
 {
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder
-			->add('status', ChoiseType::class, ['choises'=> [
+			->add('status', ChoiceType::class, ['choices'=> [
 				'Enabled'=>'ENABLED', 'Disabled'=>'DISABLED']])
 			->add('expiresOn')
 			->add('title')
-			->add('body');
+			->add('body')
+			->add('onpage', ChoiceType::class, ['choices'=> [
+				'home'=>'Home', 
+				'about'=>'About',
+				'program'=>'Program',
+				'contact'=>'Contact',
+			]])
+		;
 	}
 }

@@ -22,69 +22,6 @@ class AdminController extends Controller
 {
 	
 	/**
-	* @Route("/api/content/{textId}", name="postchunk")
-	* @Method("POST")
-	*/
-	/*public function saveTextAction(Request $request, $textId) 
-	{
-		$pageText = $this->getDoctrine()
-			->getRepository('AppBundle:PageText')->find($textId);
-		
-		if (!$pageText) {
-			$pageText = new PageText();
-			$pageText->setTextId($id);
-		}
-		$content = $request->request->get('value');
-		if ($content) {
-			$pageText->setTextContent($content);
-
-			$em = $this->getDoctrine()->getManager();
-			$em->persist($pageText);
-			$em->flush();
-
-			return $this->json(array(
-				'status'=>'success', 
-				$status=200
-			));
-		}
-	   
-		return $this->json(array(
-			'status' => 'error', 
-			$status=500
-		));
-	}
-	*/
-	/**
-	* @Route("/forms/topmenu", name="topmenu")
-	* @Method({"GET", "POST"})
-	*/
-   /* public function siteMenuFormAction(Request $request)
-	{
-		$siteMenu = new SiteMenu();
-		$form = $this->createForm(TopmenuType::class, $siteMenu, array(
-			'action' => $this->generateUrl("topmenu"),
-			'method' => 'POST',
-		));
-
-		$form->handleRequest($request);
-		if ($form->isSubmitted() && $form->isValid()) {
-			$siteMenu = $form->getData();
-			$nextPosition = $this->getDoctrine()->getRepository(SiteMenu::class)
-				->findNextAvailablePosition($siteMenu->getName());
-				
-			$siteMenu->setPosition($nextPosition);
-			$em = $this->getDoctrine()->getManager();
-			$em->persist($siteMenu);
-			$em->flush();
-
-			return $this->redirectToRoute('homepage');
-		}
-
-		return $this->render('forms/topmenu.html.twig', array(
-			'form'=>$form->createView()));
-	} */
-
-	/**
 	* @Route("/topmenu/new", name="newmenu")
 	* @Method({"GET", "POST"})
 	*/
@@ -143,7 +80,7 @@ class AdminController extends Controller
 	}
 
 	/**
-	* @Route("/article/new", name="newarticle")
+	* @Route("/article/new", name="createarticle")
 	* @Method({"GET", "POST"})
 	*/
 	public function newArticleAction(Request $request)
@@ -155,6 +92,7 @@ class AdminController extends Controller
 
 		if ($form->isSubmitted() && $form->isValid()) {
 			$article = $form->getData();
+			
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($article);
 			$em->flush();
