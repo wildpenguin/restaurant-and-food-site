@@ -21,15 +21,15 @@ class ArticleType extends AbstractType
 		$builder
 			->add('status', ChoiceType::class, ['choices'=> [
 				'Enabled'=>'ENABLED', 'Disabled'=>'DISABLED']])
-			->add('expiresOn')
 			->add('title')
 			->add('body')
-			->add('onpage', ChoiceType::class, ['choices'=> [
-				'home'=>'Home', 
-				'about'=>'About',
-				'program'=>'Program',
-				'contact'=>'Contact',
-			]])
 		;
+	}
+
+	public function configureOptions(OptionsResolver $resolver)
+	{
+    	$resolver->setDefaults(array(
+        	'data_class' => Article::class,
+    	));
 	}
 }

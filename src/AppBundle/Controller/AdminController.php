@@ -86,18 +86,23 @@ class AdminController extends Controller
 	public function newArticleAction(Request $request)
 	{
 		$article = new Article();
-		$form = $this->createForm(ArticleType::class, $article);
-
+		$formUrl = $this->generateUrl('createarticle', [
+			'rootpage'=>$request->query->get('rootpage')
+		]);
+		$form = $this->createForm(ArticleType::class, $article, array(
+			'action' => $formUrl,
+			'method' => 'POST',
+		));
 		$form->handleRequest($request);
-
+		
 		if ($form->isSubmitted() && $form->isValid()) {
 			$article = $form->getData();
-			
+			$article->setRootpage($request->query->get('rootpage'));
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($article);
 			$em->flush();
 
-			return $this->redirectToRoute('homepage');
+			return $this->redirect('/'. $article->getRootpage());
 		}
 
 		return $this->render('forms/article.html.twig', array(

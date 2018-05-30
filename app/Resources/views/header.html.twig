@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 	<head>
 		<meta charset="UTF-8" />
 		<title>{% block title %}Welcome!{% endblock %}</title>
@@ -7,11 +7,13 @@
 		{% block stylesheets %}
 
 			<!-- Latest compiled and minified CSS -->
-			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+			<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 
 			<!-- Optional theme -->
-			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+			<!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"-->
+
 			<link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
+
 			<link rel="stylesheet" href="css/app.css">
 
 		{% endblock %}
@@ -21,37 +23,30 @@
 	</head>
 	<body>
 		{% block header %}
-			<nav class="navbar navbar-inverse">
-			<div class="container-fluid">
-			<!-- Brand and toggle get grouped for better mobile display -->
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse-1" aria-expanded="false">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-				</div>
-				<div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
-				<div class="container-fluid">
-					<ul class="nav navbar-nav">
+			<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav mr-auto">
 						{% for item in menuItems|default("") %}
-						<li>
-							<a href="{{item.url}}">{{item.title|capitalize}}</a>
+						<li class="nav-item">
+							<a class="na-link" href="{{item.url}}">{{item.title|capitalize}}</a>
 						</li>
 						{% if is_granted('ROLE_ADMIN') %}
-						<li>
+						<li class="nav-item">
 							<sub>
-								<a class="adminmenu clickable" href="/admin/topmenu/{{item.id}}/edit"><i class="fas fa-pencil-alt"></i></a>
+								<a class="adminmenu clickable" data-modal-class="modal-sm" href="/admin/topmenu/{{item.id}}/edit"><i class="fas fa-pencil-alt"></i></a>
 							</sub>
 						</li>
 							{% endif %}
 						{% else %}
-							<li><a href="#">Empty menu list ?</a></li>
+							<li class="nav-item"><a href="#">Empty menu list ?</a></li>
 						{% endfor %}
 						{% if is_granted('ROLE_ADMIN') %}
-						<li>
-							<a class="adminmenu clickable" href="/admin/topmenu/new"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+						<li class="nav-item">
+							<a class="adminmenu clickable" data-modal-class="modal-sm" href="/admin/topmenu/new"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
 						</li>
 						{% endif %}
 					</ul>
@@ -67,40 +62,43 @@
 						<li><a href="/logout"><i class="fa fa-user" aria-hidden="true"></i> Logged as admin</a></li>
 					</ul>
 					{% endif %}
-
 				</div>
-
-				<!-- Collect the nav links, forms, and other content for toggling -->
-				</div>
-			</div>
 			</nav>
+
 		{% endblock %}
 
 		{% block body %}
 		{% endblock %}
 
 		{% block javascripts %}
-			<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+			<script  src="https://code.jquery.com/jquery-3.3.1.min.js"
+				integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+				crossorigin="anonymous"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
 			<script src="{{ asset('js/easycms.js') }}"></script>
 		{% endblock %}
 
-		 <div class="mymodal modal fade" tabindex="-1" role="dialog">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title">Modal title</h4>
-					</div>
-					<div class="modal-body">
-						<p>One fine body&hellip;</p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary">Save changes</button>
-					</div>
-				</div><!-- /.modal-content -->
-			</div><!-- /.modal-dialog -->
-		</div><!-- /.modal -->
+		<div class="mymodal fade modal" tabindex="-1" role="dialog">
+		  <div class="modal-dialog" role="document">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<h5 class="modal-title">Modal title</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				  <span aria-hidden="true">&times;</span>
+				</button>
+			  </div>
+			  <div class="modal-body">
+				<p>Loading...</p>
+			  </div>
+			  <div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save changes</button>
+			  </div>
+			</div>
+		  </div>
+</div>
+
 	</body>
 </html>

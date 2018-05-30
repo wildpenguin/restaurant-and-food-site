@@ -1,17 +1,5 @@
+{% form_theme articleForm 'bootstrap_4_layout.html.twig' %}
 
 {{ form_start(articleForm) }}
-    {{ form_errors(articleForm) }}
-
-    <div>
-        {{ form_widget(articleForm.title) }}
-    </div>
-
-    <div>
-        {{ form_widget(articleForm.body) }}
-    </div>
-	<div>
-        {{ form_widget(articleForm.onpage) }}
-    </div>
-
-
+{{ form_widget(articleForm) }}
 {{ form_end(articleForm) }}

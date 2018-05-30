@@ -17,7 +17,14 @@ function init()
 	$('.clickable').click(function(e){
 		e.preventDefault();
 
+		var self = $(this);
+		modal.find('.modal-dialog').removeClass('modal-sm modal-lg');
+
+		if (self.data().modalClass != undefined) {
+			modal.find('.modal-dialog').addClass(self.data().modalClass);
+		}
 		modal.modal('show');
+
 		var requestUrl = e.currentTarget.href;
 		modalBody.html('<i class="fas fa-spinner fa-spin"></i>');
 		$.ajax({
@@ -31,7 +38,9 @@ function init()
 		});
 	});
 
+	// submit form
 	modal.find('.modal-footer .btn-primary').click(function(e){
+		e.preventDefault();
 		var form = modal.find('.modal-body form');
 		form.submit();
 	});

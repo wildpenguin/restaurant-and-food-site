@@ -7,4 +7,8 @@
 	width: 50%;
 	margin:0 auto;
 }
-
+sub {
+	bottom:0.5em;
+	padding-left:2px;
+	padding-right:10px;
+}

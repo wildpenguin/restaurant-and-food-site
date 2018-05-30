@@ -6,10 +6,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\SiteMenu;
 use AppBundle\Form\TopmenuType;
+use AppBundle\Entity\SiteMenu;
 use AppBundle\Repository\MenuRepository;
-
+use AppBundle\Entity\Article;
+use AppBundle\Repository\ArticleRepository;
 
 class PageController extends Controller
 {
@@ -32,68 +33,23 @@ class PageController extends Controller
 		));
 	}
 
-
 	/**
-	 * @Route("/", name="homepage")
-	 * @Route("/home", name="homepage2")
-	 */
-	public function indexAction(Request $request)
-	{
-		$menuItems = $this->getDoctrine()
-			->getRepository(SiteMenu::class)
-			->findByName('topmenu');
-
-		return $this->render('page/index.html.twig', array(
-			"menuItems"=>$menuItems,
-			"articles" =>""
-		));
-	}
-
-
-	/**
-	 * @Route("/about", name="about")
+	 * @Route("/{pagename}", name="generalpage")
 	 * 
 	 */
-	public function aboutAction(Request $request)
+	public function mainAction(Request $request, $pagename='home')
 	{
 		$menuItems = $this->getDoctrine()
 			->getRepository(SiteMenu::class)
 			->findByName('topmenu');
-
-		return $this->render('page/about.html.twig', array(
-			"menuItems"=>$menuItems,
-		));
-	}
-	
-
-	/**
-	 * @Route("/program", name="program")
-	 * 
-	 */
-	public function programAction(Request $request)
-	{
-		$menuItems = $this->getDoctrine()
-			->getRepository(SiteMenu::class)
-			->findByName('topmenu');
-
-		return $this->render('page/program.html.twig', array(
-			"menuItems"=>$menuItems,
-		));
-	}
-
-
-	/**
-	 * @Route("/contact", name="contact")
-	 * 
-	 */
-	public function contactAction(Request $request)
-	{
-		$menuItems = $this->getDoctrine()
-			->getRepository(SiteMenu::class)
-			->findByName('topmenu');
-
-		return $this->render('page/contact.html.twig', array(
-			"menuItems"=>$menuItems,
+		
+		$articles = $this->getDoctrine()
+			->getRepository(Article::class)->findByRootpage($pagename);
+		
+		return $this->render('page/generic.html.twig', array(
+			'menuItems'=>$menuItems,
+			'articles'=>$articles,
+			'rootpage'=>$pagename,
 		));
 	}
 

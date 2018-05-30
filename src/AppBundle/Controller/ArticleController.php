@@ -24,7 +24,7 @@ class ArticleController extends Controller
     * @Method({"GET", "POST"})
     */
     public function newAction(Request $request)
-    {
+    {return;
         $siteMenu = new SiteMenu();
         $form = $this->createForm(TopmenuType::class, $siteMenu);
 

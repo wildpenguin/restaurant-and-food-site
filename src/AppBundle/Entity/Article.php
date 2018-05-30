@@ -41,9 +41,9 @@ class Article
 	private $status;
 
 	/**
-	* @ORM\Column(name="onpage", type="string", length=100)
+	* @ORM\Column(name="rootpage", type="string", length=100)
 	*/
-	private $onpage;
+	private $rootpage;
 
 	/**
 	* @ORM\Column(name="expiresOn", type="datetime", length=100)
@@ -161,13 +161,13 @@ class Article
     /**
      * Set onpage
      *
-     * @param string $onpage
+     * @param string $rootpage
      *
      * @return Article
      */
-    public function setOnpage($onpage)
+    public function setRootpage($onpage)
     {
-        $this->onpage = $onpage;
+        $this->rootpage = $onpage;
 
         return $this;
     }
@@ -177,9 +177,9 @@ class Article
      *
      * @return string
      */
-    public function getOnpage()
+    public function getRootpage()
     {
-        return $this->onpage;
+        return $this->rootpage;
     }
 
     /**
